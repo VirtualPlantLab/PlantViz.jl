@@ -1,0 +1,7 @@
+name = "VPLViz"
+uuid = "358bd95d-d12c-439f-94b7-04b17e500c7f"
+authors = ["Alejandro Morales Sierra <alejandro.moralessierra@wur.nl> and contributors"]
+version = "0.0.1"
+
+[compat]
+julia = "1.9"
