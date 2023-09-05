@@ -1,13 +1,13 @@
-using VPLViz
+using PlantViz
 using Documenter
 
-DocMeta.setdocmeta!(VPLViz, :DocTestSetup, :(using VPLViz); recursive = true)
+DocMeta.setdocmeta!(PlantViz, :DocTestSetup, :(using PlantViz); recursive = true)
 
 makedocs(;
-    modules = [VPLViz],
+    modules = [PlantViz],
     authors = "Alejandro Morales Sierra <alejandro.moralessierra@wur.nl> and contributors",
-    repo = "https://github.com/AleMorales/VPLViz.jl/blob/{commit}{path}#{line}",
-    sitename = "VPLViz.jl",
+    repo = "https://github.com/AleMorales/PlantViz.jl/blob/{commit}{path}#{line}",
+    sitename = "PlantViz.jl",
     format = Documenter.HTML(;
         prettyurls = get(ENV, "CI", "false") == "true",
         edit_link = "master",

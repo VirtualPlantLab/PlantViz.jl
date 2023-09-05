@@ -23,7 +23,7 @@ jobs:
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
-      - run: julia --project -e 'using Pkg; Pkg.add(url="https://github.com/VirtualPlantLab/VPLGeom.jl")'
+      - run: julia --project -e 'using Pkg; Pkg.add(url="https://github.com/VirtualPlantLab/PlantGeomPrimitives.jl")'
       - uses: julia-actions/cache@v1
       - uses: julia-actions/julia-runtest@latest
       - uses: julia-actions/julia-processcoverage@v1

@@ -1,4 +1,4 @@
-name = "VPLViz"
+name = "PlantViz"
 uuid = "358bd95d-d12c-439f-94b7-04b17e500c7f"
 authors = ["Alejandro Morales Sierra <alejandro.moralessierra@wur.nl> and contributors"]
 version = "0.0.1"
@@ -9,16 +9,18 @@ FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 GeometryBasics = "5c1252a2-5f33-56bf-86c9-59e7332b4326"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
+PlantGeomPrimitives = "7eef3cc5-4580-4ff0-8f6f-933507db6664"
+PlantRayTracer = "78485975-e4aa-407d-b3bb-ded5a4265d05"
 Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
-VPLGeom = "7eef3cc5-4580-4ff0-8f6f-933507db6664"
 
 [compat]
 ColorTypes = "0.11.4"
 FileIO = "1.16.1"
 GeometryBasics = "0.4.7"
 Makie = "0.19.6"
+PlantGeomPrimitives = "0.0.01"
+PlantRayTracer = "0.0.1"
 Unrolled = "0.1.5"
-VPLGeom = "0.0.1"
 julia = "1.9"
 
 [extras]

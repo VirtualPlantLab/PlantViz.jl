@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = VPLViz
+CurrentModule = PlantViz
 ```
 
-# VPLViz
+# PlantViz
 
-Documentation for [VPLViz](https://github.com/AleMorales/VPLViz.jl).
+Documentation for [PlantViz](https://github.com/AleMorales/PlantViz.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [VPLViz]
+Modules = [PlantViz]
 ```

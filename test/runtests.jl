@@ -1,13 +1,13 @@
-using VPLViz
+using PlantViz
 using Test
 import Aqua
 
-@testset "VPLViz.jl" begin
+@testset "PlantViz.jl" begin
 
     # Aqua
     @testset "Aqua" begin
-        Aqua.test_all(VPLViz, ambiguities = false)
-        Aqua.test_ambiguities([VPLViz])
+        Aqua.test_all(PlantViz, ambiguities = false)
+        Aqua.test_ambiguities([PlantViz])
     end
 
     # Rendering meshes of primitives
