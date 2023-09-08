@@ -6,7 +6,7 @@ import LinearAlgebra: normalize, ×
 import ColorTypes: Colorant, RGB, RGBA
 import FileIO
 import Unrolled: @unroll
-import PlantGeomPrimitives
+import PlantGeomPrimitives: Vec
 import PlantRayTracer as VT
 
 export render, render!, export_scene
