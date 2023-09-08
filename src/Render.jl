@@ -7,11 +7,11 @@
     render(m::Mesh; kwargs...)
 
 Render a mesh. This will create a new visualization (see Documentation for
-details). Keyword arguments are passed to the `render(scene::PlantGeomPrimitives.Scene)` method
+details). Keyword arguments are passed to the `render(scene::Scene)` method
 and any unmatched keywords will be passed along to `Makie.mesh()`.
 """
-function render(m::PlantGeomPrimitives.Mesh; kwargs...)
-    render(PlantGeomPrimitives.GLMesh(m); kwargs...)
+function render(m::Mesh; kwargs...)
+    render(GLMesh(m); kwargs...)
 end
 
 """
@@ -19,11 +19,11 @@ end
 
 Add a mesh to the visualization currently active. This will create a new
 visualization (see Documentation for details). Keyword arguments are passed to
-the `render!(scene::PlantGeomPrimitives.Scene)` method and any unmatched keywords will be passed
+the `render!(scene::Scene)` method and any unmatched keywords will be passed
 along to `Makie.mesh!()`.
 """
-function render!(m::PlantGeomPrimitives.Mesh; kwargs...)
-    render!(PlantGeomPrimitives.GLMesh(m); kwargs...)
+function render!(m::Mesh; kwargs...)
+    render!(GLMesh(m); kwargs...)
 end
 
 # Basic rendering of a triangular mesh that is already in the right format
@@ -69,14 +69,14 @@ the edges of each triangle with black lines. Keyword arguments are passed to
 `Makie.mesh()`.
 """
 function render(
-    scene::PlantGeomPrimitives.Scene;
+    scene::Scene;
     normals::Bool = false,
     wireframe::Bool = false,
     kwargs...,
 )
     render(
-        PlantGeomPrimitives.mesh(scene);
-        color = PlantGeomPrimitives.colors(scene),
+        mesh(scene);
+        color = colors(scene),
         normals = normals,
         wireframe = wireframe,
         kwargs...,
