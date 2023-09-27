@@ -68,12 +68,7 @@ of the normal vector for each triangle in the mesh, `wireframe = true` will draw
 the edges of each triangle with black lines. Keyword arguments are passed to
 `Makie.mesh()`.
 """
-function render(
-    scene::Scene;
-    normals::Bool = false,
-    wireframe::Bool = false,
-    kwargs...,
-)
+function render(scene::Scene; normals::Bool = false, wireframe::Bool = false, kwargs...)
     render(
         mesh(scene);
         color = colors(scene),
@@ -102,12 +97,16 @@ of the light source is rendered along with the normal vector at that point
 (representative of the direction at which rays are generated). In the current
 version, `point = true` is only possible for directional light sources.
 """
-function render!(sources::Vector{VT.Source{G, A, nw}}; n = 20, alpha = 0.2,
-                 scale = 0.2) where {G <: VT.Directional, A <: VT.FixedSource, nw}
+function render!(
+    sources::Vector{VT.Source{G,A,nw}};
+    n = 20,
+    alpha = 0.2,
+    scale = 0.2,
+) where {G<:VT.Directional,A<:VT.FixedSource,nw}
     FT = eltype(sources[1].geom.xmin)
     # Compute point and arrow for each light source
     temp = compute_dir_p.(sources)
-    origins, norms = Tuple(getindex.(temp,i) for i in 1:2)
+    origins, norms = Tuple(getindex.(temp, i) for i = 1:2)
     # Render the points and scaled normal vectors
     Makie.scatter!(origins)
     Makie.linesegments!(norms)
@@ -117,9 +116,7 @@ end
 # Compute a point to represent a directional light source
 function compute_dir_p(s)
     # Point in the center of the AABB
-    p = Vec((s.geom.xmin + s.geom.xmax)/2,
-            (s.geom.ymin + s.geom.ymax)/2,
-            s.geom.zmax)
+    p = Vec((s.geom.xmin + s.geom.xmax) / 2, (s.geom.ymin + s.geom.ymax) / 2, s.geom.zmax)
     # Normal vector
     n = s.angle.dir
     # Scaling
@@ -127,15 +124,18 @@ function compute_dir_p(s)
     Δy = s.geom.ymax - s.geom.ymin
     s = max(Δx, Δy)
     # Possible origin of source
-    point = p .- n.*s
+    point = p .- n .* s
     # Arrow
-    arrow = point => point .+ n.*s./5
+    arrow = point => point .+ n .* s ./ 5
     # Return the point and arrow
     return point, arrow
 end
 
 
-function render!(sources::VT.Source{G, A, nw}; kwargs...) where {G <: VT.Directional, A <: VT.FixedSource, nw}
+function render!(
+    sources::VT.Source{G,A,nw};
+    kwargs...,
+) where {G<:VT.Directional,A<:VT.FixedSource,nw}
     render!([sources]; kwargs...)
 end
 
@@ -149,7 +149,7 @@ function render!(grid::VT.GridCloner; alpha = 0.2)
     leaf_nodes = filter(x -> x.leaf, grid.nodes.data)
     AABBs = getfield.(leaf_nodes, :box)
     mesh = Mesh([BBox(box.min, box.max) for box in AABBs])
-    render!(mesh, color = RGBA(0.0,0.0,0.0, alpha), transparency = true)
+    render!(mesh, color = RGBA(0.0, 0.0, 0.0, alpha), transparency = true)
 end
 
 #######################

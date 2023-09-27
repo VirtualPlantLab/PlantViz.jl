@@ -1,7 +1,7 @@
 using PlantViz
 using PlantGeomPrimitives
 import GLMakie # import native backend for rendering -> NOT "using"!
-GLMakie.activate!(inline=false)
+GLMakie.activate!(inline = false)
 
 #let
 
