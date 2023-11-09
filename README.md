@@ -1,7 +1,7 @@
 # PlantViz
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://VirtualPlantLab.github.io/PlantViz.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://VirtualPlantLab.github.io/PlantViz.jl/dev/)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://virtualplantlab.com/stable/api/viz/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://virtualplantlab.com/dev/api/viz/)
 [![CI](https://github.com/VirtualPlantLab/PlantViz.jl/actions/workflowsCI.yml/badge.svg)](https://github.com/VirtualPlantLab/PlantViz.jl/actions/workflowsCI.yml)
 [![Coverage](https://codecov.io/gh/VirtualPlantLab/PlantViz.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/VirtualPlantLab/PlantViz.jl)
 [![SciML Code Style](https://img.shields.io/static/v1?label=code%20style&message=SciML&color=9558b2&labelColor=389826)](https://github.com/SciML/SciMLStyle)
