@@ -33,12 +33,13 @@ function render(
     normals::Bool = false,
     wireframe::Bool = false,
     axes::Bool = true,
-    resolution = (1920, 1080),
+    size = (1920, 1080),
     kwargs...,
 )
-    fig = Makie.Figure(resolution = resolution)
+    fig = Makie.Figure(size = size)
     lscene = Makie.LScene(fig[1, 1], show_axis = axes)
-    Makie.mesh!(lscene, m, color = color, near = 0; kwargs...)
+    Makie.cam3d!(lscene; clipping_mode = :adaptive)
+    Makie.mesh!(lscene, m, color = color; kwargs...)
     scene_additions!(m, normals, wireframe)
     fig
 end
@@ -49,7 +50,7 @@ function render!(
     wireframe::Bool = false,
     kwargs...,
 )
-    Makie.mesh!(m, color = color, near = 0; kwargs...)
+    Makie.mesh!(m, color = color; kwargs...)
     scene_additions!(m, normals, wireframe)
 end
 

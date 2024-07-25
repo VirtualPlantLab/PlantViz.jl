@@ -3,7 +3,7 @@ using PlantGeomPrimitives
 import GLMakie # import native backend for rendering -> NOT "using"!
 GLMakie.activate!(inline = false)
 
-#let
+let
 
 # Triangle
 t = Triangle(length = 2.0, width = 2.0)
@@ -84,4 +84,4 @@ render(f, wireframe = true, normals = true)
 f = HollowFrustum(length = 2.0f0, width = 1.0f0, height = 1.0f0, ratio = 0.5f0, n = 40);
 render(f, wireframe = true, normals = true)
 
-#end
+end
