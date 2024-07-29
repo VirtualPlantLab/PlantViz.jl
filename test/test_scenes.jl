@@ -14,39 +14,39 @@ GLMakie.activate!(inline = false)
 
 # Modules needed to test ray tracing of graphs
 module sn
-using PlantGraphs
-using PlantRayTracer
-struct E64 <: Node
-    length::Float64
-    mat::Black{1}
-end
-struct E32 <: Node
-    length::Float32
-    mat::Black{1}
-end
-struct E2 <: Node
-    length::Float64
-    mat::Vector{Black{1}}
-end
+    using PlantGraphs
+    using PlantRayTracer
+    struct E64 <: Node
+        length::Float64
+        mat::Black{1}
+    end
+    struct E32 <: Node
+        length::Float32
+        mat::Black{1}
+    end
+    struct E2 <: Node
+        length::Float64
+        mat::Vector{Black{1}}
+    end
 end
 import .sn
 
 module btree
-import PlantGraphs as G
-using PlantRayTracer
-# Meristem
-struct Meristem <: G.Node end
-# Node
-struct Node <: G.Node end
-# Internode
-mutable struct Internode <: G.Node
-    length::Float64
-    mat::Lambertian{1}
-end
-# Graph-level variables
-struct treeparams
-    growth::Float64
-end
+    import PlantGraphs as G
+    using PlantRayTracer
+    # Meristem
+    struct Meristem <: G.Node end
+    # Node
+    struct Node <: G.Node end
+    # Internode
+    mutable struct Internode <: G.Node
+        length::Float64
+        mat::Lambertian{1}
+    end
+    # Graph-level variables
+    struct treeparams
+        growth::Float64
+    end
 end
 import .btree
 
@@ -92,13 +92,12 @@ let
     radiosity = 1.0
     rect = Rectangle(length = 1.0, width = 1.0)
     rotatey!(rect, -π / 4)
-    material = [Black()]
-    ids = [1, 1]
+    mat = Black()
+    ext_mat = [mat, mat]
     scene = Scene(
         mesh = rect,
-        material_ids = ids,
-        materials = material,
-        colors = [RGB(1, 0, 0) for i = 1:4],
+        materials = ext_mat,
+        colors = RGB(1, 0, 0),
     )
     gbox = RT.AABB(scene)
     source = DirectionalSource(gbox, θ = 0.0, Φ = 0.0, radiosity = radiosity, nrays = nrays)
