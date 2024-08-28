@@ -8,7 +8,6 @@ using Test
 import ColorTypes: RGB
 using PlantViz
 import GLMakie # import native backend for rendering -> NOT "using"!
-GLMakie.activate!(inline = false)
 
 ##### Test turtle-based construction of a scene #####
 
