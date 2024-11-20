@@ -76,9 +76,9 @@ let
             width = e.length / 10,
             height = e.length / 10,
             move = true,
-            material = e.mat,
+            materials = e.mat,
             n = 20,
-            color = [rand(RGB) for _ in 1:20],
+            colors = [rand(RGB) for _ in 1:20],
         )
         return nothing
     end
