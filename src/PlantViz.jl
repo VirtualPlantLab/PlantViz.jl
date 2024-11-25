@@ -2,11 +2,11 @@ module PlantViz
 
 import Makie
 import GeometryBasics
-import LinearAlgebra: normalize, ×
-import ColorTypes: Colorant, RGB, RGBA
+import LinearAlgebra as L
+import ColorTypes as CT
 import FileIO
 import Unrolled: @unroll
-import PlantGeomPrimitives: Mesh, GLMesh, Vec, Scene, mesh, colors, Vec, BBox
+import PlantGeomPrimitives as PGP
 import PlantRayTracer as VT
 
 export render, render!, export_scene

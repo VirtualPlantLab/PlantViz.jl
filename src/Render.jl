@@ -10,8 +10,8 @@ Render a mesh. This will create a new visualization (see Documentation for
 details). Keyword arguments are passed to the `render(scene::Scene)` method
 and any unmatched keywords will be passed along to `Makie.mesh()`.
 """
-function render(m::Mesh; kwargs...)
-    render(GLMesh(m); kwargs...)
+function render(m::PGP.Mesh; kwargs...)
+    render(PGP.GLMesh(m); kwargs...)
 end
 
 """
@@ -22,8 +22,8 @@ visualization (see Documentation for details). Keyword arguments are passed to
 the `render!(scene::Scene)` method and any unmatched keywords will be passed
 along to `Makie.mesh!()`.
 """
-function render!(m::Mesh; kwargs...)
-    render!(GLMesh(m); kwargs...)
+function render!(m::PGP.Mesh; kwargs...)
+    render!(PGP.GLMesh(m); kwargs...)
 end
 
 # Basic rendering of a triangular mesh that is already in the right format
@@ -71,10 +71,10 @@ the edges of each triangle with black lines. Keyword arguments are passed to
 but it is possible to turn this off by passing `shading = false`. This will use the exact
 colors specified in the `Scene` object.
 """
-function render(scene::Scene; normals::Bool = false, wireframe::Bool = false, kwargs...)
+function render(scene::PGP.Scene; normals::Bool = false, wireframe::Bool = false, kwargs...)
     render(
-        mesh(scene);
-        color = colors(scene),
+        PGP.mesh(scene);
+        color = PGP.colors(scene),
         normals = normals,
         wireframe = wireframe,
         kwargs...,
@@ -119,7 +119,7 @@ end
 # Compute a point to represent a directional light source
 function compute_dir_p(s)
     # Point in the center of the AABB
-    p = Vec((s.geom.xmin + s.geom.xmax) / 2, (s.geom.ymin + s.geom.ymax) / 2, s.geom.zmax)
+    p = PGP.Vec((s.geom.xmin + s.geom.xmax) / 2, (s.geom.ymin + s.geom.ymax) / 2, s.geom.zmax)
     # Normal vector
     n = s.angle.dir
     # Scaling
@@ -151,8 +151,8 @@ where `alpha` represents the transparency of each box.
 function render!(grid::VT.GridCloner; alpha = 0.2)
     leaf_nodes = filter(x -> x.leaf, grid.nodes.data)
     AABBs = getfield.(leaf_nodes, :box)
-    mesh = Mesh([BBox(box.min, box.max) for box in AABBs])
-    render!(mesh, color = RGBA(0.0, 0.0, 0.0, alpha), transparency = true)
+    mesh = PGP.Mesh([PGP.BBox(box.min, box.max) for box in AABBs])
+    render!(mesh, color = CT.RGBA(0.0, 0.0, 0.0, alpha), transparency = true)
 end
 
 #######################
