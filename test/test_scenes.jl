@@ -3,7 +3,7 @@ using PlantGeomPrimitives
 import PlantGeomPrimitives as Geom
 using PlantGeomTurtle
 using PlantRayTracer
-import PlantRayTracer as RT
+import PlantRayTracer as PRT
 using Test
 import ColorTypes: RGB
 using PlantViz
@@ -84,27 +84,23 @@ let
     end
     rule = Rule(sn.E64, rhs = Kochsnowflake)
     Koch = Graph(axiom = axiom, rules = Tuple(rule))
-    scene = Scene(Koch)
-    render(scene)
+    mesh = Mesh(Koch)
+    render(mesh)
 
     # Intersection of a rectangle from a directional light source downwards
     nrays = 100_000
     radiosity = 1.0
-    rect = Rectangle(length = 1.0, width = 1.0)
-    rotatey!(rect, -π / 4)
+    mesh = Rectangle(length = 1.0, width = 1.0)
+    rotatey!(mesh, -π / 4)
     mat = Black()
-    ext_mat = [mat, mat]
-    scene = Scene(
-        mesh = rect,
-        materials = ext_mat,
-        colors = RGB(1, 0, 0),
-    )
-    gbox = RT.AABB(scene)
+    add_property!(mesh, :materials, [mat for _ in 1:2])
+    add_property!(mesh, :colors, [RGB(1, 0, 0) for _ in 1:2])
+    gbox = PRT.AABB(mesh)
     source = DirectionalSource(gbox, θ = 0.0, Φ = 0.0, radiosity = radiosity, nrays = nrays)
     settings = RTSettings(pkill = 1.0, maxiter = 1, dx = sqrt(0.5), dy = 1.0)
-    rtobj = RayTracer(scene, source, settings = settings, acceleration = Naive)
-    render(scene)
+    rtobj = RayTracer(mesh, source, settings = settings, acceleration = Naive)
+    render(mesh)
     render!(source)
-    render!(rtobj.scene.grid)
+    render!(rtobj.mesh.grid)
 
 end

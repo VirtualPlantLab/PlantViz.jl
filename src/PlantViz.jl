@@ -7,7 +7,7 @@ import ColorTypes as CT
 import FileIO
 import Unrolled: @unroll
 import PlantGeomPrimitives as PGP
-import PlantRayTracer as VT
+import PlantRayTracer as PRT
 
 export render, render!, export_scene
 
