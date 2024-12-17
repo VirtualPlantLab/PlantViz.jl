@@ -3,29 +3,6 @@
 ##### Meshes #####
 ##################
 
-"""
-    render(m::Mesh; kwargs...)
-
-Render a mesh. This will create a new visualization (see Documentation for
-details). Keyword arguments are passed to the `render(scene::Scene)` method
-and any unmatched keywords will be passed along to `Makie.mesh()`.
-"""
-function render(m::PGP.Mesh; kwargs...)
-    render(PGP.GLMesh(m); kwargs...)
-end
-
-"""
-    render!(m::Mesh; kwargs...)
-
-Add a mesh to the visualization currently active. This will create a new
-visualization (see Documentation for details). Keyword arguments are passed to
-the `render!(scene::Scene)` method and any unmatched keywords will be passed
-along to `Makie.mesh!()`.
-"""
-function render!(m::PGP.Mesh; kwargs...)
-    render!(PGP.GLMesh(m); kwargs...)
-end
-
 # Basic rendering of a triangular mesh that is already in the right format
 function render(
     m::GeometryBasics.Mesh;
@@ -54,16 +31,10 @@ function render!(
     scene_additions!(m, normals, wireframe)
 end
 
-
-
-##################
-##### Scenes #####
-##################
-
 """
-    render(scene::Scene; normals::Bool = false, wireframe::Bool = false, kwargs...)
+    render(mesh::Mesh; normals::Bool = false, wireframe::Bool = false, kwargs...)
 
-Render a `Scene` object. This will create a new visualization (see
+Render a `Mesh` object. This will create a new visualization (see
 Documentation for details). `normals = true` will draw arrows in the direction
 of the normal vector for each triangle in the mesh, `wireframe = true` will draw
 the edges of each triangle with black lines. Keyword arguments are passed to
@@ -71,10 +42,10 @@ the edges of each triangle with black lines. Keyword arguments are passed to
 but it is possible to turn this off by passing `shading = false`. This will use the exact
 colors specified in the `Scene` object.
 """
-function render(scene::PGP.Scene; normals::Bool = false, wireframe::Bool = false, kwargs...)
+function render(mesh::PGP.Mesh; normals::Bool = false, wireframe::Bool = false, kwargs...)
     render(
-        PGP.mesh(scene);
-        color = PGP.colors(scene),
+        PGP.GLMesh(mesh);
+        color = repeat(PGP.properties(mesh)[:colors], inner = 3),
         normals = normals,
         wireframe = wireframe,
         kwargs...,
@@ -101,11 +72,11 @@ of the light source is rendered along with the normal vector at that point
 version, `point = true` is only possible for directional light sources.
 """
 function render!(
-    sources::Vector{VT.Source{G,A,nw}};
+    sources::Vector{PRT.Source{G,A,nw}};
     n = 20,
     alpha = 0.2,
     scale = 0.2,
-) where {G<:VT.Directional,A<:VT.FixedSource,nw}
+) where {G<:PRT.Directional,A<:PRT.FixedSource,nw}
     FT = eltype(sources[1].geom.xmin)
     # Compute point and arrow for each light source
     temp = compute_dir_p.(sources)
@@ -136,9 +107,9 @@ end
 
 
 function render!(
-    sources::VT.Source{G,A,nw};
+    sources::PRT.Source{G,A,nw};
     kwargs...,
-) where {G<:VT.Directional,A<:VT.FixedSource,nw}
+) where {G<:PRT.Directional,A<:PRT.FixedSource,nw}
     render!([sources]; kwargs...)
 end
 
@@ -148,11 +119,11 @@ end
 Add a mesh representing the bounding boxes of the grid cloner to a 3D scene,
 where `alpha` represents the transparency of each box.
 """
-function render!(grid::VT.GridCloner; alpha = 0.2)
+function render!(grid::PRT.GridCloner; alpha = 0.2)
     leaf_nodes = filter(x -> x.leaf, grid.nodes.data)
     AABBs = getfield.(leaf_nodes, :box)
     mesh = PGP.Mesh([PGP.BBox(box.min, box.max) for box in AABBs])
-    render!(mesh, color = CT.RGBA(0.0, 0.0, 0.0, alpha), transparency = true)
+    render!(PGP.GLMesh(mesh), color = CT.RGBA(0.0, 0.0, 0.0, alpha), transparency = true)
 end
 
 #######################
