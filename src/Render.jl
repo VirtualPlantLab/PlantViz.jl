@@ -3,6 +3,35 @@
 ##### Meshes #####
 ##################
 
+"""
+    colors(mesh::PGP.Mesh)
+
+Extract the colors properties from a given mesh.
+
+# Arguments
+- `mesh::PGP.Mesh`: The mesh object from which to extract material properties.
+
+# Returns
+- A dictionary containing the material properties of the mesh.
+
+# Examples
+```jldoctest
+
+julia> using PlantGeomPrimitives;
+
+julia> import ColorTypes: RGB;
+
+julia> r = Rectangle();
+
+julia> add_property!(r, :colors, RGB(1.0, 0.0, 0.0));
+
+julia> colors(r);
+```
+"""
+function colors(mesh::PGP.Mesh)
+    return PGP.properties(mesh)[:colors]
+end
+
 # Basic rendering of a triangular mesh that is already in the right format
 function render(
     m::GeometryBasics.Mesh;
@@ -45,7 +74,7 @@ colors specified in the `Scene` object.
 function render(mesh::PGP.Mesh; normals::Bool = false, wireframe::Bool = false, kwargs...)
     render(
         PGP.GLMesh(mesh);
-        color = repeat(PGP.properties(mesh)[:colors], inner = 3),
+        color = repeat(colors(mesh), inner = 3),
         normals = normals,
         wireframe = wireframe,
         kwargs...,

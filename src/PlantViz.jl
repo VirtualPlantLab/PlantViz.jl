@@ -9,7 +9,7 @@ import Unrolled: @unroll
 import PlantGeomPrimitives as PGP
 import PlantRayTracer as PRT
 
-export render, render!, export_scene
+export render, render!, export_scene, colors
 
 include("Render.jl")
 include("Makie.jl")
