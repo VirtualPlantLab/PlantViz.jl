@@ -16,7 +16,6 @@ Extract the colors properties from a given mesh.
 
 # Examples
 ```jldoctest
-
 julia> using PlantGeomPrimitives;
 
 julia> import ColorTypes: RGB;
