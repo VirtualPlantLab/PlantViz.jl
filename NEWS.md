@@ -2,6 +2,14 @@
 
 We started keeping track of changes in the `NEWS.md` file after version 0.1.0.
 
+# PlantViz 1.0.0 (2026-06-10)
+
+No actual changes. We move to version 1.0.0 because:
+
+- The tool is being used extensively by the community and it has become more stable.
+
+- Julia treats any change as breaking change when < 1.0.0
+
 # PlantViz 0.2.0 (2026-06-10)
 
 * Add `alpha_soil` keyword argument to `render` to rotate the camera by the
