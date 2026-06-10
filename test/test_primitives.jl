@@ -13,6 +13,8 @@ t = Triangle(length = 2.0f0, width = 2.0f0)
 add_property!(t, :colors, RGB(1, 0, 0))
 render(t, wireframe = true, normals = true)
 
+# Test that we can rotate the camera
+render(t, wireframe = true, normals = true,alpha_soil = pi/8)
 
 # Rectangle
 r = Rectangle(length = 2.0, width = 1.0);
