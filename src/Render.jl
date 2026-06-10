@@ -39,11 +39,17 @@ function render(
     wireframe::Bool = false,
     axes::Bool = true,
     size = (1920, 1080),
+    alpha_soil::Real = 0,
     kwargs...,
 )
     fig = Makie.Figure(size = size)
     lscene = Makie.LScene(fig[1, 1], show_axis = axes)
     Makie.cam3d!(lscene; clipping_mode = :adaptive)
+    if alpha_soil != 0
+        new_up = Makie.Vec3f(0, -sin(alpha_soil), cos(alpha_soil))
+        cam = Makie.cameracontrols(lscene)
+        Makie.update_cam!(lscene.scene, cam.eyeposition[], cam.lookat[], new_up)
+    end
     Makie.mesh!(lscene, m, color = color; kwargs...)
     scene_additions!(m, normals, wireframe)
     fig
@@ -60,22 +66,26 @@ function render!(
 end
 
 """
-    render(mesh::Mesh; normals::Bool = false, wireframe::Bool = false, kwargs...)
+    render(mesh::Mesh; normals::Bool = false, wireframe::Bool = false, alpha_soil::Real = 0, kwargs...)
 
 Render a `Mesh` object. This will create a new visualization (see
 Documentation for details). `normals = true` will draw arrows in the direction
 of the normal vector for each triangle in the mesh, `wireframe = true` will draw
-the edges of each triangle with black lines. Keyword arguments are passed to
-`Makie.mesh()`. The actual color of each triangle depends on the illumination of the scene
-but it is possible to turn this off by passing `shading = false`. This will use the exact
-colors specified in the `Scene` object.
+the edges of each triangle with black lines. `alpha_soil` is the soil slope
+inclination angle in radians (default `0`): when non-zero, the camera is rotated
+around the X axis by this angle so that the XY plane no longer appears horizontal.
+Keyword arguments are passed to `Makie.mesh()`. The actual color of each triangle
+depends on the illumination of the scene but it is possible to turn this off by
+passing `shading = false`. This will use the exact colors specified in the `Scene`
+object.
 """
-function render(mesh::PGP.Mesh; normals::Bool = false, wireframe::Bool = false, kwargs...)
+function render(mesh::PGP.Mesh; normals::Bool = false, wireframe::Bool = false, alpha_soil::Real = 0, kwargs...)
     render(
         PGP.GLMesh(mesh);
         color = repeat(colors(mesh), inner = 3),
         normals = normals,
         wireframe = wireframe,
+        alpha_soil = alpha_soil,
         kwargs...,
     )
 end
