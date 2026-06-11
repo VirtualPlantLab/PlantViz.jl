@@ -14,7 +14,7 @@ add_property!(t, :colors, RGB(1, 0, 0))
 render(t, wireframe = true, normals = true)
 
 # Test that we can rotate the camera
-render(t, wireframe = true, normals = true,alpha_soil = pi/8)
+render(t, wireframe = true, normals = true,alpha_soil = 20.0)
 
 # Rectangle
 r = Rectangle(length = 2.0, width = 1.0);

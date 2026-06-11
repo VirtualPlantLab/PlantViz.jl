@@ -47,7 +47,7 @@ function render(
     lscene = Makie.LScene(fig[1, 1], show_axis = axes)
     Makie.cam3d!(lscene; clipping_mode = :adaptive)
     if alpha_soil != 0.0
-        new_up_vec = PRT.rotate_coordinates(0.0, 0.0, 0.0, alpha_soil, beta_soil)
+        new_up_vec = PRT.rotate_coordinates(0.0, 0.0, 0.0, alpha_soil, beta_soil)[3]
         new_up = Makie.Vec3f(-new_up_vec[1], -new_up_vec[2], -new_up_vec[3])
         cam = Makie.cameracontrols(lscene)
         Makie.update_cam!(lscene.scene, cam.eyeposition[], cam.lookat[], new_up)
